@@ -17,6 +17,6 @@ console.log(langParser.parse(lang))
 
 Output:
 
-```json
+```
 { hello: { world: 'Hello, World' } }
 ```
