@@ -1,0 +1,2 @@
+# langParser
+Parses .lang files!
