@@ -1,8 +1,3 @@
-/**
- * Parses a .lang file to a JSON object
- * 
- * @param {any} langString 
- */
 const parse = (langString) => {
   const lines = langString.trim().split('\n');
   const resultObject = {};
@@ -12,18 +7,19 @@ const parse = (langString) => {
     if (match) {
       const key = match[1].trim();
       const value = match[2].trim().replace(/%s/g, '%s'); // Escape % symbol
+
       const keys = key.split('.');
       let nestedObject = resultObject;
 
-      keys.forEach((currentKey, index) => {
-        if (!nestedObject[currentKey]) {
-          nestedObject[currentKey] = index === keys.length - 1 ? value : {};
-        }
-        if (index === keys.length - 1) {
+      for (let i = 0; i < keys.length; i++) {
+        const currentKey = keys[i];
+        if (i === keys.length - 1) {
           nestedObject[currentKey] = value;
+        } else {
+          nestedObject[currentKey] = nestedObject[currentKey] || {};
+          nestedObject = nestedObject[currentKey];
         }
-        nestedObject = nestedObject[currentKey];
-      });
+      }
     }
   });
 
@@ -34,4 +30,4 @@ const parse = (langString) => {
   return resultObject;
 };
 
-module.exports = parseLangFile;
+module.exports = parse;
