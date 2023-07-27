@@ -9,10 +9,10 @@ const parseJson = (langString) => {
   const resultObject = {};
 
   lines.forEach((line) => {
-    const match = line.match(/^\s*([^=]+)\s*=\s*(.*)\s*$/); // Updated regular expression
+    const match = line.match(/^\s*([^=]+)\s*=\s*(.*)\s*$/);
     if (match) {
       const key = match[1].trim();
-      const value = match[2].trim().replace(/%s/g, '%s'); // Escape % symbol
+      const value = match[2].trim();
 
       const keys = key.split('.');
       let nestedObject = resultObject;
