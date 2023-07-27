@@ -1,6 +1,6 @@
 /**
  * Parses the `langString` and returns a JSON object
- * 
+ *
  * @param {string} langString - The input string to parse
  * @returns {any} The parsed JSON object
  */
@@ -38,7 +38,7 @@ const parseJson = (langString) => {
 
 /**
  * Parses the raw content and returns a translations object
- * 
+ *
  * @param {string} content - The content to parse
  * @returns {Object.<string, string>} The translations object
  */
@@ -66,7 +66,7 @@ const parseRaw = (content) => {
 
 /**
  * Returns the value for the specified key from the JSON object
- * 
+ *
  * @param {string} key - The key to retrieve
  * @param {any} jsonObject - The JSON object to get the retrieve from
  * @returns {string}
