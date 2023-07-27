@@ -1,4 +1,4 @@
-# lang-parser
+# langparser
 A library to parse .lang files!
 
 ### Examples
