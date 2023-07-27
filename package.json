@@ -1,5 +1,5 @@
 {
-  "name": "langparser",
+  "name": "lang-parser",
   "version": "1.0.0",
   "description": "A library to parse .lang files!",
   "main": "index.js",
