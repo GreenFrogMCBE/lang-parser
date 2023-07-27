@@ -49,6 +49,7 @@ const parseRaw = (content) => {
 
   for (const line of lines) {
     const trimmedLine = line.trim();
+
     if (!trimmedLine || trimmedLine.startsWith('#')) {
       continue; // Ignore comments
     }
