@@ -9,7 +9,7 @@ const parseJson = (langString) => {
   const resultObject = {};
 
   lines.forEach((line) => {
-    const match = line.match(/^\s*"?(.*?)"?\s*:\s*"?(.*?)"?\s*,?\s*$/);
+    const match = line.match(/^\s*([^=]+)\s*=\s*(.*)\s*$/); // Updated regular expression
     if (match) {
       const key = match[1].trim();
       const value = match[2].trim().replace(/%s/g, '%s'); // Escape % symbol
@@ -71,7 +71,21 @@ const parseRaw = (content) => {
  * @returns {string}
  */
 const getKey = (key, jsonObject) => {
-  return jsonObject[key].toString()
-}
+  if (key.includes(".")) {
+    const keys = key.split(".");
+    let value = jsonObject;
+    for (const k of keys) {
+      if (!value.hasOwnProperty(k)) {
+        return jsonObject[key];
+      }
+      value = value[k];
+    }
+    return value;
+  }
+};
 
-module.exports = parseJson, parseRaw, getKey;
+module.exports = {
+  parseJson,
+  parseRaw,
+  getKey,
+};
