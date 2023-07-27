@@ -6,7 +6,7 @@ A library to parse .lang files!
 #### JS
 
 ```js
-const langParser = require("./index")
+const langParser = require("@kotinash/langparser")
 
 const langString = `"hello.world": "Hello, World"`
 
@@ -14,7 +14,7 @@ console.log(langParser.parseJson(langString)) // Output: { hello: { world: 'Hell
 ```
 
 ```js
-const langParser = require("./index")
+const langParser = require("@kotinash/langparser")
 
 const langString = `"hello.world": "Hello, World"`
 
@@ -22,7 +22,7 @@ console.log(langParser.parseRaw(langString)) // Output: { "hello.world": "Hello,
 ```
 
 ```js
-const langParser = require("./index")
+const langParser = require("@kotinash/langparser")
 
 const langString = `"hello.world": "Hello, World"`
 
@@ -33,7 +33,7 @@ console.log(langParser.getKey("hello.world", langParser.parseJson(langString)); 
 #### TS
 
 ```ts
-import { parseJson } from "./index"
+import { parseJson } from "@kotinash/langparser"
 
 const langString = `hello.world=Hello, World` 
 
@@ -41,7 +41,7 @@ console.log(parseJson(langString)); // Output: { hello: { world: 'Hello, World' 
 ```
 
 ```ts
-import { parseRaw } from "./index"
+import { parseRaw } from "@kotinash/langparser"
 
 const langString = `hello.world=Hello, World` 
 
@@ -49,7 +49,7 @@ console.log(parseRaw(langString)); // Output: { "hello.world": 'Hello, World' }
 ```
 
 ```ts
-import { getKey, parseRaw, parseJson } from "./index"
+import { getKey, parseRaw, parseJson } from "@kotinash/langparser"
 
 const langString = `hello.world=Hello, World` 
 
