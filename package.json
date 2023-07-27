@@ -2,6 +2,6 @@
   "name": "langparser",
   "version": "1.0.0",
   "description": "A library to parse .lang files!",
-  "main": "langParser.js",
+  "main": "index.js",
   "license": "MIT"
 }

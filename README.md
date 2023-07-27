@@ -6,17 +6,17 @@ A library to parse .lang files!
 ```js
 const lang = `"hello.world": "Hello, World"`
 
-console.log(langParser.parse(lang))
+console.log(langParser.parseJson(lang)) // Output: { hello: { world: 'Hello, World' } }
 ```
 
-### Example .lang file
+```js
+const lang = `"hello.world": "Hello, World"`
 
-```
-"hello.world": "Hello, World"
+console.log(langParser.parseRaw(lang)) // Output: { "hello.world": "Hello, World" }
 ```
 
-Output:
+```js
+const lang = `"hello.world": "Hello, World"`
 
-```
-{ hello: { world: 'Hello, World' } }
+console.log(langParser.getKey("hello.world", langParser.parseRaw(lang))) // Output: Hello, World
 ```

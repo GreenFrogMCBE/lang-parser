@@ -1,3 +1,9 @@
+/**
+ * Parses the the langString and returns a JSON object
+ * 
+ * @param {string} langString 
+ * @returns {any}
+ */
 const parseJson = (langString) => {
   const lines = langString.trim().split('\n');
   const resultObject = {};
@@ -31,24 +37,28 @@ const parseJson = (langString) => {
 };
 
 const parseRaw = (content) => {
-    const translations = {};
+  const translations = {};
 
-    const lines = content.split('\n');
+  const lines = content.split('\n');
 
-    for (const line of lines) {
-        const trimmedLine = line.trim();
-        if (!trimmedLine || trimmedLine.startsWith('#')) {
-            continue; // Ignore comments
-        }
-
-        const [key, value] = trimmedLine.split('=');
-        const trimmedKey = key.trim();
-        const trimmedValue = value.trim();
-
-        translations[trimmedKey] = trimmedValue;
+  for (const line of lines) {
+    const trimmedLine = line.trim();
+    if (!trimmedLine || trimmedLine.startsWith('#')) {
+      continue; // Ignore comments
     }
 
-    return translations;
+    const [key, value] = trimmedLine.split('=');
+    const trimmedKey = key.trim();
+    const trimmedValue = value.trim();
+
+    translations[trimmedKey] = trimmedValue;
+  }
+
+  return translations;
 }
 
-module.exports = parseJson, parseRaw;
+const getKey = (key, jsonObject) => {
+  return jsonObject[key]
+}
+
+module.exports = parseJson, parseRaw, getKey;
