@@ -1,4 +1,4 @@
-const parse = (langString) => {
+const parseJson = (langString) => {
   const lines = langString.trim().split('\n');
   const resultObject = {};
 
@@ -30,4 +30,25 @@ const parse = (langString) => {
   return resultObject;
 };
 
-module.exports = parse;
+const parseRaw = (content) => {
+    const translations = {};
+
+    const lines = content.split('\n');
+
+    for (const line of lines) {
+        const trimmedLine = line.trim();
+        if (!trimmedLine || trimmedLine.startsWith('#')) {
+            continue; // Ignore comments
+        }
+
+        const [key, value] = trimmedLine.split('=');
+        const trimmedKey = key.trim();
+        const trimmedValue = value.trim();
+
+        translations[trimmedKey] = trimmedValue;
+    }
+
+    return translations;
+}
+
+module.exports = parseJson, parseRaw;
