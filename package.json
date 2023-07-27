@@ -1,7 +1,22 @@
 {
-  "name": "lang-parser",
+  "name": "@kotinash/langparser",
   "version": "1.0.0",
   "description": "A library to parse .lang files!",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "types": "./index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kotinash/lang-parser.git"
+  },
+  "keywords": [
+    "lang",
+    "parser",
+    "langparser"
+  ],
+  "author": "kotinash",
+  "bugs": {
+    "url": "https://github.com/kotinash/lang-parser/issues"
+  },
+  "homepage": "https://github.com/kotinash/lang-parser#readme"
 }
