@@ -1,7 +1,7 @@
 # langparser
 A library to parse .lang files!
 
-### Examples
+### Example usages
 
 #### JS
 
