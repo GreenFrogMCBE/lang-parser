@@ -1,5 +1,5 @@
 {
-  "name": "@greenfrogmcbe/lang-parser",
+  "name": "@greenfrog/lang-parser",
   "version": "1.0.4",
   "description": "A library to parse .lang files!",
   "main": "index.js",
