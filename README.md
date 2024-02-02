@@ -1,4 +1,5 @@
 # lang-parser
+
 A library to parse .lang files!
 
 ### Example usages
@@ -6,53 +7,53 @@ A library to parse .lang files!
 #### JS
 
 ```js
-const langParser = require("@kotinash/lang-parser")
+const parser = require("@greenfrogmcbe/lang-parser")
 
-const langString = `"hello.world": "Hello, World"`
+const lang = `"hello.world": "Hello, World"`
 
-console.log(langParser.parseJson(langString)) // Output: { hello: { world: 'Hello, World' } }
+console.log(parser.parse_json(lang)) // Output: { hello: { world: 'Hello, World' } }
 ```
 
 ```js
-const langParser = require("@kotinash/langparser")
+const parser = require("@greenfrogmcbe/lang-parser")
 
-const langString = `"hello.world": "Hello, World"`
+const lang = `"hello.world": "Hello, World"`
 
-console.log(langParser.parseRaw(langString)) // Output: { "hello.world": "Hello, World" }
+console.log(parser.parse_raw(lang)) // Output: { "hello.world": "Hello, World" }
 ```
 
 ```js
-const langParser = require("@kotinash/lang-parser")
+const parser = require("@kotinash/lang-parser")
 
-const langString = `"hello.world": "Hello, World"`
+const lang = `"hello.world": "Hello, World"`
 
-console.log(langParser.getKey("hello.world", langParser.parseRaw(langString))) // Output: Hello, World
-console.log(langParser.getKey("hello.world", langParser.parseJson(langString)); // "Hello, World"
+console.log(parser.get_key("hello.world", parser.parse_raw(lang))) // Output: Hello, World
+console.log(parser.get_key("hello.world", parser.parse_json(lang)); // Output: Hello, World
 ```
 
 #### TS
 
 ```ts
-import { parseJson } from "@kotinash/lang-parser"
+import { parse_json } from "@kotinash/lang-parser"
 
-const langString = `hello.world=Hello, World` 
+const lang = `hello.world=Hello, World` 
 
-console.log(parseJson(langString)); // Output: { hello: { world: 'Hello, World' } }
+console.log(parse_json(lang)); // Output: { hello: { world: 'Hello, World' } }
 ```
 
 ```ts
-import { parseRaw } from "@kotinash/lang-parser"
+import { parse_raw } from "@kotinash/lang-parser"
 
-const langString = `hello.world=Hello, World` 
+const lang = `hello.world=Hello, World` 
 
-console.log(parseRaw(langString)); // Output: { "hello.world": 'Hello, World' }
+console.log(parse_raw(lang)); // Output: { "hello.world": 'Hello, World' }
 ```
 
 ```ts
-import { getKey, parseRaw, parseJson } from "@kotinash/langparser"
+import { get_key, parse_raw, parse_json } from "@kotinash/parser"
 
-const langString = `hello.world=Hello, World` 
+const lang = `hello.world=Hello, World` 
 
-console.log(getKey("hello.world", parseRaw(langString)); // "Hello, World"
-console.log(getKey("hello.world", parseJson(langString)); // "Hello, World"
+console.log(get_key("hello.world", parse_raw(lang)); // "Hello, World"
+console.log(get_key("hello.world", parse_json(lang)); // "Hello, World"
 ```
