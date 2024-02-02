@@ -72,6 +72,14 @@ class LanguageParser {
 		return translations
 	}
 
+	private static replace_placeholders(placeholders: string[], value: string) {
+		for (let i = 0; i < placeholders.length; i++) {
+			value = value.replace(`%${i}`, placeholders[i])
+		}
+
+		return value
+	}
+
 	static get_key(key: string, json_object: any, placeholders: string[] = []) {
 		if (key.includes(".")) {
 			const keys = key.split(".")
@@ -79,17 +87,13 @@ class LanguageParser {
 
 			for (const k of keys) {
 				if (!value.hasOwnProperty(k)) {
-					return json_object[key]
+					return this.replace_placeholders(placeholders, json_object[key])
 				}
 
 				value = value[k]
 			}
 
-			for (let i = 0; i < placeholders.length; i++) {
-				value = value.replace(`%${i}`, placeholders[i])
-			}
-
-			return value
+			return this.replace_placeholders(placeholders, value)
 		}
 	}
 }
