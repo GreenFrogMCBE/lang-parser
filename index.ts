@@ -72,7 +72,7 @@ class LanguageParser {
 		return translations
 	}
 
-	static get_key(key: string, json_object: any) {
+	static get_key(key: string, json_object: any, placeholders: string[] = []) {
 		if (key.includes(".")) {
 			const keys = key.split(".")
 			let value = json_object
@@ -83,6 +83,10 @@ class LanguageParser {
 				}
 
 				value = value[k]
+			}
+
+			for (let i = 0; i < placeholders.length; i++) {
+				value = value.replace(`%${i}`, placeholders[i])
 			}
 
 			return value
