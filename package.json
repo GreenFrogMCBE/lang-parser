@@ -1,10 +1,9 @@
 {
   "name": "@greenfrog/lang-parser",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A library to parse .lang files!",
   "main": "index.js",
   "license": "MIT",
-  "types": "./index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GreenFrogMCBE/lang-parser.git"
