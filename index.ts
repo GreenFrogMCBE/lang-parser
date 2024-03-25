@@ -34,7 +34,8 @@ class LanguageParser {
 					if (i === keys.length - 1) {
 						nested_object[current_key] = value
 					} else {
-						nested_object[current_key] = nested_object[current_key] || {}
+						nested_object[current_key] =
+							nested_object[current_key] || {}
 						nested_object = nested_object[current_key]
 					}
 				}
@@ -42,7 +43,9 @@ class LanguageParser {
 		})
 
 		if (Object.keys(result).length === 0) {
-			throw new LanguageFileParseError("Language file is corrupted or empty")
+			throw new LanguageFileParseError(
+				"Language file is corrupted or empty"
+			)
 		}
 
 		return result
@@ -70,14 +73,22 @@ class LanguageParser {
 		return translations
 	}
 
-	static get_key(key: string, json_object: object, placeholders: Array<string> = []) {
+	static get_key(
+		key: string,
+		json_object: object,
+		placeholders: Array<string> = []
+	) {
 		// Use "as" for autocompletion
 		const value = json_object[key] as string
 
 		if (!placeholders) return
 
-		// No need for replace placeholders, already integrated here || Instead of a for loop, we use RegEx to skip looping.
-		return value.replace(/%([0-9]+)/g, (_, index) => placeholders[parseInt(index)])
+		// No need for the replace placeholders function, already integrated here
+		// Instead of a for loop, we use RegEx to skip looping.
+		return value.replace(
+			/%([0-9]+)/g,
+			(_, index) => placeholders[parseInt(index)]
+		)
 	}
 }
 
