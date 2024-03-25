@@ -1,101 +1,91 @@
 class LanguageFileParseError extends Error {
-	constructor(message: string) {
-		super()
+  constructor(message: string) {
+    super();
 
-		this.message = message
-	}
+    this.message = message;
+  }
 }
 
 type Language = {
-	[key: string]: string
-}
+  [key: string]: string;
+};
 
 class LanguageParser {
-	private static REGEX: RegExp = /^\s*([^=]+)\s*=\s*(.*)\s*$/
+  private static REGEX: RegExp = /^\s*([^=]+)\s*=\s*(.*)\s*$/;
 
-	static parse_json(lang_str: string) {
-		const lines = lang_str.
-			trim()
-			.split('\n')
+  static parse_json(lang_str: string) {
+    const lines = lang_str.trim().split("\n");
 
-		const result = {}
+    const result = {};
 
-		lines.forEach((line: string) => {
-			const match = line.match(LanguageParser.REGEX)
+    lines.forEach((line: string) => {
+      const match = line.match(LanguageParser.REGEX);
 
-			if (match) {
-				const key = match[1].trim()
-				const value = match[2].trim()
+      if (match) {
+        const key = match[1].trim();
+        const value = match[2].trim();
 
-				const keys = key.split('.')
-				let nested_object = result
+        const keys = key.split(".");
+        let nested_object = result;
 
-				for (let i = 0; i < keys.length; i++) {
-					const current_key = keys[i]
+        for (let i = 0; i < keys.length; i++) {
+          const current_key = keys[i];
 
-					if (i === keys.length - 1) {
-						nested_object[current_key] = value
-					} else {
-						nested_object[current_key] = nested_object[current_key] || {}
-						nested_object = nested_object[current_key]
-					}
-				}
-			}
-		})
+          if (i === keys.length - 1) {
+            nested_object[current_key] = value;
+          } else {
+            nested_object[current_key] = nested_object[current_key] || {};
+            nested_object = nested_object[current_key];
+          }
+        }
+      }
+    });
 
-		if (Object.keys(result).length === 0) {
-			throw new LanguageFileParseError("Language file is corrupted or empty")
-		}
+    if (Object.keys(result).length === 0) {
+      throw new LanguageFileParseError("Language file is corrupted or empty");
+    }
 
-		return result
-	}
+    return result;
+  }
 
-	static parse_raw(content: string): Language {
-		const translations = {}
+  static parse_raw(content: string): Language {
+    const translations = {};
 
-		const lines = content.split('\n')
+    const lines = content.split("\n");
 
-		for (const line of lines) {
-			const trimmedLine = line.trim()
+    for (const line of lines) {
+      const trimmedLine = line.trim();
 
-			if (!trimmedLine || trimmedLine.startsWith('#')) {
-				continue // Ignore comments
-			}
+      if (!trimmedLine || trimmedLine.startsWith("#")) {
+        continue; // Ignore comments
+      }
 
-			const [key, value] = trimmedLine.split('=')
-			const trimmedKey = key.trim()
-			const trimmedValue = value.trim()
+      const [key, value] = trimmedLine.split("=");
+      const trimmedKey = key.trim();
+      const trimmedValue = value.trim();
 
-			translations[trimmedKey] = trimmedValue
-		}
+      translations[trimmedKey] = trimmedValue;
+    }
 
-		return translations
-	}
+    return translations;
+  }
 
-	private static replace_placeholders(placeholders: string[], value: string) {
-		for (let i = 0; i < placeholders.length; i++) {
-			value = value.replace(`%${i}`, placeholders[i])
-		}
+  static get_key(
+    key: string,
+    json_object: object,
+    placeholders: Array<string> = []
+  ) {
+    // Use "as" for autocompletion
+    const value = json_object[key] as string;
 
-		return value
-	}
+    if (!placeholders) return;
 
-	static get_key(key: string, json_object: any, placeholders: string[] = []) {
-		if (key.includes(".")) {
-			const keys = key.split(".")
-			let value = json_object
-
-			for (const k of keys) {
-				if (!value.hasOwnProperty(k)) {
-					return this.replace_placeholders(placeholders, json_object[key])
-				}
-
-				value = value[k]
-			}
-
-			return this.replace_placeholders(placeholders, value)
-		}
-	}
+    // No need for replace placeholders, already integrated here || Instead of a for loop, we use RegEx to skip looping.
+    return value.replace(
+      /%([0-9]+)/g,
+      (_, index) => placeholders[parseInt(index)]
+    );
+  }
 }
 
-export { LanguageParser, LanguageFileParseError }
+export { LanguageParser, LanguageFileParseError };
