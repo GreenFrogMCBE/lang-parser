@@ -14,9 +14,7 @@ class LanguageParser {
 	private static REGEX: RegExp = /^\s*([^=]+)\s*=\s*(.*)\s*$/
 
 	static parse_json(lang_str: string) {
-		const lines = lang_str.
-			trim()
-			.split('\n')
+		const lines = lang_str.trim().split("\n")
 
 		const result = {}
 
@@ -27,7 +25,7 @@ class LanguageParser {
 				const key = match[1].trim()
 				const value = match[2].trim()
 
-				const keys = key.split('.')
+				const keys = key.split(".")
 				let nested_object = result
 
 				for (let i = 0; i < keys.length; i++) {
@@ -36,7 +34,8 @@ class LanguageParser {
 					if (i === keys.length - 1) {
 						nested_object[current_key] = value
 					} else {
-						nested_object[current_key] = nested_object[current_key] || {}
+						nested_object[current_key] =
+							nested_object[current_key] || {}
 						nested_object = nested_object[current_key]
 					}
 				}
@@ -44,7 +43,9 @@ class LanguageParser {
 		})
 
 		if (Object.keys(result).length === 0) {
-			throw new LanguageFileParseError("Language file is corrupted or empty")
+			throw new LanguageFileParseError(
+				"Language file is corrupted or empty"
+			)
 		}
 
 		return result
@@ -53,16 +54,16 @@ class LanguageParser {
 	static parse_raw(content: string): Language {
 		const translations = {}
 
-		const lines = content.split('\n')
+		const lines = content.split("\n")
 
 		for (const line of lines) {
 			const trimmedLine = line.trim()
 
-			if (!trimmedLine || trimmedLine.startsWith('#')) {
+			if (!trimmedLine || trimmedLine.startsWith("#")) {
 				continue // Ignore comments
 			}
 
-			const [key, value] = trimmedLine.split('=')
+			const [key, value] = trimmedLine.split("=")
 			const trimmedKey = key.trim()
 			const trimmedValue = value.trim()
 
@@ -72,29 +73,22 @@ class LanguageParser {
 		return translations
 	}
 
-	private static replace_placeholders(placeholders: string[], value: string) {
-		for (let i = 0; i < placeholders.length; i++) {
-			value = value.replace(`%${i}`, placeholders[i])
-		}
+	static get_key(
+		key: string,
+		json_object: object,
+		placeholders: Array<string> = []
+	) {
+		// Use "as" for autocompletion
+		const value = json_object[key] as string
 
-		return value
-	}
+		if (!placeholders) return
 
-	static get_key(key: string, json_object: any, placeholders: string[] = []) {
-		if (key.includes(".")) {
-			const keys = key.split(".")
-			let value = json_object
-
-			for (const k of keys) {
-				if (!value.hasOwnProperty(k)) {
-					return this.replace_placeholders(placeholders, json_object[key])
-				}
-
-				value = value[k]
-			}
-
-			return this.replace_placeholders(placeholders, value)
-		}
+		// No need for the replace placeholders function, already integrated here
+		// Instead of a for loop, we use RegEx to skip looping.
+		return value.replace(
+			/%([0-9]+)/g,
+			(_, index) => placeholders[parseInt(index)]
+		)
 	}
 }
 
